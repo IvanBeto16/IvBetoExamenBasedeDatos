@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_SofomSWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Especie">
+          <Key>
+            <PropertyRef Name="IdEspecie" />
+          </Key>
+          <Property Name="IdEspecie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreEspecie" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="MaestroJedi">
+          <Key>
+            <PropertyRef Name="IdMaestro" />
+          </Key>
+          <Property Name="IdMaestro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMiembro" Type="int" />
+          <Property Name="IdSistema" Type="int" />
+        </EntityType>
+        <EntityType Name="MiembroOrden">
+          <Key>
+            <PropertyRef Name="IdMiembro" />
+          </Key>
+          <Property Name="IdMiembro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="60" />
+          <Property Name="IdEspecie" Type="int" />
+          <Property Name="IdPlaneta" Type="int" />
+          <Property Name="IdRango" Type="int" />
+          <Property Name="Midiclorianos" Type="int" />
+          <Property Name="Edad" Type="int" />
+        </EntityType>
+        <EntityType Name="Padawan">
+          <Key>
+            <PropertyRef Name="IdPadawan" />
+            <PropertyRef Name="IdMaestro" />
+          </Key>
+          <Property Name="IdPadawan" Type="int" Nullable="false" />
+          <Property Name="IdMaestro" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Planeta">
+          <Key>
+            <PropertyRef Name="IdPlaneta" />
+          </Key>
+          <Property Name="IdPlaneta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombrePlaneta" Type="varchar" MaxLength="50" />
+          <Property Name="IdRegion" Type="int" />
+        </EntityType>
+        <EntityType Name="Rango">
+          <Key>
+            <PropertyRef Name="IdRango" />
+          </Key>
+          <Property Name="IdRango" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreRango" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="IdRegion" />
+          </Key>
+          <Property Name="IdRegion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreTipo" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="SistemaEstelar">
+          <Key>
+            <PropertyRef Name="IdSistema" />
+          </Key>
+          <Property Name="IdSistema" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreSistema" Type="varchar" MaxLength="50" />
+          <Property Name="IdRegion" Type="int" />
+        </EntityType>
+        <Association Name="FK__MaestroJe__IdMie__20C1E124">
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="0..1" />
+          <End Role="MaestroJedi" Type="Self.MaestroJedi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MiembroOrden">
+              <PropertyRef Name="IdMiembro" />
+            </Principal>
+            <Dependent Role="MaestroJedi">
+              <PropertyRef Name="IdMiembro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MaestroJe__IdSis__21B6055D">
+          <End Role="SistemaEstelar" Type="Self.SistemaEstelar" Multiplicity="0..1" />
+          <End Role="MaestroJedi" Type="Self.MaestroJedi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SistemaEstelar">
+              <PropertyRef Name="IdSistema" />
+            </Principal>
+            <Dependent Role="MaestroJedi">
+              <PropertyRef Name="IdSistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MiembroOr__IdEsp__1920BF5C">
+          <End Role="Especie" Type="Self.Especie" Multiplicity="0..1" />
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especie">
+              <PropertyRef Name="IdEspecie" />
+            </Principal>
+            <Dependent Role="MiembroOrden">
+              <PropertyRef Name="IdEspecie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MiembroOr__IdPla__1A14E395">
+          <End Role="Planeta" Type="Self.Planeta" Multiplicity="0..1" />
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planeta">
+              <PropertyRef Name="IdPlaneta" />
+            </Principal>
+            <Dependent Role="MiembroOrden">
+              <PropertyRef Name="IdPlaneta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MiembroOr__IdRan__1B0907CE">
+          <End Role="Rango" Type="Self.Rango" Multiplicity="0..1" />
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rango">
+              <PropertyRef Name="IdRango" />
+            </Principal>
+            <Dependent Role="MiembroOrden">
+              <PropertyRef Name="IdRango" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Padawan__IdMaest__25869641">
+          <End Role="MaestroJedi" Type="Self.MaestroJedi" Multiplicity="1" />
+          <End Role="Padawan" Type="Self.Padawan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaestroJedi">
+              <PropertyRef Name="IdMaestro" />
+            </Principal>
+            <Dependent Role="Padawan">
+              <PropertyRef Name="IdMaestro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Padawan__IdPadaw__24927208">
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="1" />
+          <End Role="Padawan" Type="Self.Padawan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MiembroOrden">
+              <PropertyRef Name="IdMiembro" />
+            </Principal>
+            <Dependent Role="Padawan">
+              <PropertyRef Name="IdPadawan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Planeta__IdRegio__1273C1CD">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="Planeta" Type="Self.Planeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="IdRegion" />
+            </Principal>
+            <Dependent Role="Planeta">
+              <PropertyRef Name="IdRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SistemaEs__IdReg__1DE57479">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="SistemaEstelar" Type="Self.SistemaEstelar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="IdRegion" />
+            </Principal>
+            <Dependent Role="SistemaEstelar">
+              <PropertyRef Name="IdRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="InformeJedi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DB_SofomSWModelStoreContainer">
+          <EntitySet Name="Especie" EntityType="Self.Especie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaestroJedi" EntityType="Self.MaestroJedi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MiembroOrden" EntityType="Self.MiembroOrden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Padawan" EntityType="Self.Padawan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Planeta" EntityType="Self.Planeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rango" EntityType="Self.Rango" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SistemaEstelar" EntityType="Self.SistemaEstelar" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MaestroJe__IdMie__20C1E124" Association="Self.FK__MaestroJe__IdMie__20C1E124">
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+            <End Role="MaestroJedi" EntitySet="MaestroJedi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MaestroJe__IdSis__21B6055D" Association="Self.FK__MaestroJe__IdSis__21B6055D">
+            <End Role="SistemaEstelar" EntitySet="SistemaEstelar" />
+            <End Role="MaestroJedi" EntitySet="MaestroJedi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MiembroOr__IdEsp__1920BF5C" Association="Self.FK__MiembroOr__IdEsp__1920BF5C">
+            <End Role="Especie" EntitySet="Especie" />
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MiembroOr__IdPla__1A14E395" Association="Self.FK__MiembroOr__IdPla__1A14E395">
+            <End Role="Planeta" EntitySet="Planeta" />
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MiembroOr__IdRan__1B0907CE" Association="Self.FK__MiembroOr__IdRan__1B0907CE">
+            <End Role="Rango" EntitySet="Rango" />
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Padawan__IdMaest__25869641" Association="Self.FK__Padawan__IdMaest__25869641">
+            <End Role="MaestroJedi" EntitySet="MaestroJedi" />
+            <End Role="Padawan" EntitySet="Padawan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Padawan__IdPadaw__24927208" Association="Self.FK__Padawan__IdPadaw__24927208">
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+            <End Role="Padawan" EntitySet="Padawan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Planeta__IdRegio__1273C1CD" Association="Self.FK__Planeta__IdRegio__1273C1CD">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Planeta" EntitySet="Planeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SistemaEs__IdReg__1DE57479" Association="Self.FK__SistemaEs__IdReg__1DE57479">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="SistemaEstelar" EntitySet="SistemaEstelar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_SofomSWModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Especie">
+          <Key>
+            <PropertyRef Name="IdEspecie" />
+          </Key>
+          <Property Name="IdEspecie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreEspecie" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MiembroOrden" Relationship="Self.FK__MiembroOr__IdEsp__1920BF5C" FromRole="Especie" ToRole="MiembroOrden" />
+        </EntityType>
+        <EntityType Name="MaestroJedi">
+          <Key>
+            <PropertyRef Name="IdMaestro" />
+          </Key>
+          <Property Name="IdMaestro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMiembro" Type="Int32" />
+          <Property Name="IdSistema" Type="Int32" />
+          <NavigationProperty Name="MiembroOrden" Relationship="Self.FK__MaestroJe__IdMie__20C1E124" FromRole="MaestroJedi" ToRole="MiembroOrden" />
+          <NavigationProperty Name="SistemaEstelar" Relationship="Self.FK__MaestroJe__IdSis__21B6055D" FromRole="MaestroJedi" ToRole="SistemaEstelar" />
+          <NavigationProperty Name="MiembroOrden1" Relationship="Self.Padawan" FromRole="MaestroJedi" ToRole="MiembroOrden" />
+        </EntityType>
+        <EntityType Name="MiembroOrden">
+          <Key>
+            <PropertyRef Name="IdMiembro" />
+          </Key>
+          <Property Name="IdMiembro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="IdEspecie" Type="Int32" />
+          <Property Name="IdPlaneta" Type="Int32" />
+          <Property Name="IdRango" Type="Int32" />
+          <Property Name="Midiclorianos" Type="Int32" />
+          <Property Name="Edad" Type="Int32" />
+          <NavigationProperty Name="Especie" Relationship="Self.FK__MiembroOr__IdEsp__1920BF5C" FromRole="MiembroOrden" ToRole="Especie" />
+          <NavigationProperty Name="MaestroJedi" Relationship="Self.FK__MaestroJe__IdMie__20C1E124" FromRole="MiembroOrden" ToRole="MaestroJedi" />
+          <NavigationProperty Name="Planeta" Relationship="Self.FK__MiembroOr__IdPla__1A14E395" FromRole="MiembroOrden" ToRole="Planeta" />
+          <NavigationProperty Name="Rango" Relationship="Self.FK__MiembroOr__IdRan__1B0907CE" FromRole="MiembroOrden" ToRole="Rango" />
+          <NavigationProperty Name="MaestroJedi1" Relationship="Self.Padawan" FromRole="MiembroOrden" ToRole="MaestroJedi" />
+        </EntityType>
+        <EntityType Name="Planeta">
+          <Key>
+            <PropertyRef Name="IdPlaneta" />
+          </Key>
+          <Property Name="IdPlaneta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombrePlaneta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdRegion" Type="Int32" />
+          <NavigationProperty Name="MiembroOrden" Relationship="Self.FK__MiembroOr__IdPla__1A14E395" FromRole="Planeta" ToRole="MiembroOrden" />
+          <NavigationProperty Name="Region" Relationship="Self.FK__Planeta__IdRegio__1273C1CD" FromRole="Planeta" ToRole="Region" />
+        </EntityType>
+        <EntityType Name="Rango">
+          <Key>
+            <PropertyRef Name="IdRango" />
+          </Key>
+          <Property Name="IdRango" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreRango" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MiembroOrden" Relationship="Self.FK__MiembroOr__IdRan__1B0907CE" FromRole="Rango" ToRole="MiembroOrden" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="IdRegion" />
+          </Key>
+          <Property Name="IdRegion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreTipo" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Planeta" Relationship="Self.FK__Planeta__IdRegio__1273C1CD" FromRole="Region" ToRole="Planeta" />
+          <NavigationProperty Name="SistemaEstelar" Relationship="Self.FK__SistemaEs__IdReg__1DE57479" FromRole="Region" ToRole="SistemaEstelar" />
+        </EntityType>
+        <EntityType Name="SistemaEstelar">
+          <Key>
+            <PropertyRef Name="IdSistema" />
+          </Key>
+          <Property Name="IdSistema" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreSistema" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdRegion" Type="Int32" />
+          <NavigationProperty Name="MaestroJedi" Relationship="Self.FK__MaestroJe__IdSis__21B6055D" FromRole="SistemaEstelar" ToRole="MaestroJedi" />
+          <NavigationProperty Name="Region" Relationship="Self.FK__SistemaEs__IdReg__1DE57479" FromRole="SistemaEstelar" ToRole="Region" />
+        </EntityType>
+        <Association Name="FK__MiembroOr__IdEsp__1920BF5C">
+          <End Role="Especie" Type="Self.Especie" Multiplicity="0..1" />
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Especie">
+              <PropertyRef Name="IdEspecie" />
+            </Principal>
+            <Dependent Role="MiembroOrden">
+              <PropertyRef Name="IdEspecie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MaestroJe__IdMie__20C1E124">
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="0..1" />
+          <End Role="MaestroJedi" Type="Self.MaestroJedi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MiembroOrden">
+              <PropertyRef Name="IdMiembro" />
+            </Principal>
+            <Dependent Role="MaestroJedi">
+              <PropertyRef Name="IdMiembro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MaestroJe__IdSis__21B6055D">
+          <End Role="SistemaEstelar" Type="Self.SistemaEstelar" Multiplicity="0..1" />
+          <End Role="MaestroJedi" Type="Self.MaestroJedi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SistemaEstelar">
+              <PropertyRef Name="IdSistema" />
+            </Principal>
+            <Dependent Role="MaestroJedi">
+              <PropertyRef Name="IdSistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MiembroOr__IdPla__1A14E395">
+          <End Role="Planeta" Type="Self.Planeta" Multiplicity="0..1" />
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Planeta">
+              <PropertyRef Name="IdPlaneta" />
+            </Principal>
+            <Dependent Role="MiembroOrden">
+              <PropertyRef Name="IdPlaneta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MiembroOr__IdRan__1B0907CE">
+          <End Role="Rango" Type="Self.Rango" Multiplicity="0..1" />
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rango">
+              <PropertyRef Name="IdRango" />
+            </Principal>
+            <Dependent Role="MiembroOrden">
+              <PropertyRef Name="IdRango" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Planeta__IdRegio__1273C1CD">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="Planeta" Type="Self.Planeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="IdRegion" />
+            </Principal>
+            <Dependent Role="Planeta">
+              <PropertyRef Name="IdRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SistemaEs__IdReg__1DE57479">
+          <End Role="Region" Type="Self.Region" Multiplicity="0..1" />
+          <End Role="SistemaEstelar" Type="Self.SistemaEstelar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="IdRegion" />
+            </Principal>
+            <Dependent Role="SistemaEstelar">
+              <PropertyRef Name="IdRegion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Padawan">
+          <End Role="MaestroJedi" Type="Self.MaestroJedi" Multiplicity="*" />
+          <End Role="MiembroOrden" Type="Self.MiembroOrden" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DB_SofomSWEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Especie" EntityType="Self.Especie" />
+          <EntitySet Name="MaestroJedi" EntityType="Self.MaestroJedi" />
+          <EntitySet Name="MiembroOrden" EntityType="Self.MiembroOrden" />
+          <EntitySet Name="Planeta" EntityType="Self.Planeta" />
+          <EntitySet Name="Rango" EntityType="Self.Rango" />
+          <EntitySet Name="Region" EntityType="Self.Region" />
+          <EntitySet Name="SistemaEstelar" EntityType="Self.SistemaEstelar" />
+          <AssociationSet Name="FK__MiembroOr__IdEsp__1920BF5C" Association="Self.FK__MiembroOr__IdEsp__1920BF5C">
+            <End Role="Especie" EntitySet="Especie" />
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MaestroJe__IdMie__20C1E124" Association="Self.FK__MaestroJe__IdMie__20C1E124">
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+            <End Role="MaestroJedi" EntitySet="MaestroJedi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MaestroJe__IdSis__21B6055D" Association="Self.FK__MaestroJe__IdSis__21B6055D">
+            <End Role="SistemaEstelar" EntitySet="SistemaEstelar" />
+            <End Role="MaestroJedi" EntitySet="MaestroJedi" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MiembroOr__IdPla__1A14E395" Association="Self.FK__MiembroOr__IdPla__1A14E395">
+            <End Role="Planeta" EntitySet="Planeta" />
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MiembroOr__IdRan__1B0907CE" Association="Self.FK__MiembroOr__IdRan__1B0907CE">
+            <End Role="Rango" EntitySet="Rango" />
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Planeta__IdRegio__1273C1CD" Association="Self.FK__Planeta__IdRegio__1273C1CD">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Planeta" EntitySet="Planeta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SistemaEs__IdReg__1DE57479" Association="Self.FK__SistemaEs__IdReg__1DE57479">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="SistemaEstelar" EntitySet="SistemaEstelar" />
+          </AssociationSet>
+          <AssociationSet Name="Padawan" Association="Self.Padawan">
+            <End Role="MaestroJedi" EntitySet="MaestroJedi" />
+            <End Role="MiembroOrden" EntitySet="MiembroOrden" />
+          </AssociationSet>
+          <FunctionImport Name="InformeJedi" ReturnType="Collection(DB_SofomSWModel.InformeJedi_Result)" />
+        </EntityContainer>
+        <ComplexType Name="InformeJedi_Result">
+          <Property Type="String" Name="Caballero" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="RangoMaestro" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Sistema_en_el_que_combate" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_SofomSWModelStoreContainer" CdmEntityContainer="DB_SofomSWEntities">
+          <EntitySetMapping Name="Especie">
+            <EntityTypeMapping TypeName="DB_SofomSWModel.Especie">
+              <MappingFragment StoreEntitySet="Especie">
+                <ScalarProperty Name="IdEspecie" ColumnName="IdEspecie" />
+                <ScalarProperty Name="NombreEspecie" ColumnName="NombreEspecie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaestroJedi">
+            <EntityTypeMapping TypeName="DB_SofomSWModel.MaestroJedi">
+              <MappingFragment StoreEntitySet="MaestroJedi">
+                <ScalarProperty Name="IdMaestro" ColumnName="IdMaestro" />
+                <ScalarProperty Name="IdMiembro" ColumnName="IdMiembro" />
+                <ScalarProperty Name="IdSistema" ColumnName="IdSistema" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MiembroOrden">
+            <EntityTypeMapping TypeName="DB_SofomSWModel.MiembroOrden">
+              <MappingFragment StoreEntitySet="MiembroOrden">
+                <ScalarProperty Name="IdMiembro" ColumnName="IdMiembro" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEspecie" ColumnName="IdEspecie" />
+                <ScalarProperty Name="IdPlaneta" ColumnName="IdPlaneta" />
+                <ScalarProperty Name="IdRango" ColumnName="IdRango" />
+                <ScalarProperty Name="Midiclorianos" ColumnName="Midiclorianos" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Planeta">
+            <EntityTypeMapping TypeName="DB_SofomSWModel.Planeta">
+              <MappingFragment StoreEntitySet="Planeta">
+                <ScalarProperty Name="IdPlaneta" ColumnName="IdPlaneta" />
+                <ScalarProperty Name="NombrePlaneta" ColumnName="NombrePlaneta" />
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rango">
+            <EntityTypeMapping TypeName="DB_SofomSWModel.Rango">
+              <MappingFragment StoreEntitySet="Rango">
+                <ScalarProperty Name="IdRango" ColumnName="IdRango" />
+                <ScalarProperty Name="NombreRango" ColumnName="NombreRango" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Region">
+            <EntityTypeMapping TypeName="DB_SofomSWModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+                <ScalarProperty Name="NombreTipo" ColumnName="NombreTipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SistemaEstelar">
+            <EntityTypeMapping TypeName="DB_SofomSWModel.SistemaEstelar">
+              <MappingFragment StoreEntitySet="SistemaEstelar">
+                <ScalarProperty Name="IdSistema" ColumnName="IdSistema" />
+                <ScalarProperty Name="NombreSistema" ColumnName="NombreSistema" />
+                <ScalarProperty Name="IdRegion" ColumnName="IdRegion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Padawan" TypeName="DB_SofomSWModel.Padawan" StoreEntitySet="Padawan">
+            <EndProperty Name="MaestroJedi">
+              <ScalarProperty Name="IdMaestro" ColumnName="IdMaestro" />
+            </EndProperty>
+            <EndProperty Name="MiembroOrden">
+              <ScalarProperty Name="IdMiembro" ColumnName="IdPadawan" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="InformeJedi" FunctionName="DB_SofomSWModel.Store.InformeJedi">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_SofomSWModel.InformeJedi_Result">
+                <ScalarProperty Name="Caballero" ColumnName="Caballero" />
+                <ScalarProperty Name="RangoMaestro" ColumnName="RangoMaestro" />
+                <ScalarProperty Name="Sistema_en_el_que_combate" ColumnName="Sistema en el que combate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

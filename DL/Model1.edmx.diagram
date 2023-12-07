@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fd6e7402cdad47b7a7eff96c579af6bc" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_SofomSWModel.Especie" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_SofomSWModel.MaestroJedi" Width="1.5" PointX="7.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_SofomSWModel.MiembroOrden" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_SofomSWModel.Planeta" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_SofomSWModel.Rango" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_SofomSWModel.Region" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_SofomSWModel.SistemaEstelar" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="DB_SofomSWModel.FK__MiembroOr__IdEsp__1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_SofomSWModel.FK__MaestroJe__IdMie__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_SofomSWModel.FK__MaestroJe__IdSis__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_SofomSWModel.FK__MiembroOr__IdPla__1A14E395" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_SofomSWModel.FK__MiembroOr__IdRan__1B0907CE" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_SofomSWModel.FK__Planeta__IdRegio__1273C1CD" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_SofomSWModel.FK__SistemaEs__IdReg__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_SofomSWModel.Padawan" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
